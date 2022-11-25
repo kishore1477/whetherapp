@@ -9,14 +9,20 @@ const [whetherData, setWhetherData] = useState([])
   setCond(false)
 e.preventDefault()
 const  {city} =  formdata
-console.log("city name", city)
-const res =  await axios.get(`https://weatherdbi.herokuapp.com/data/weather/${city}`)
-console.log("Response is..", res)
+
+try {
+  const res =  await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=cff81e8566f48811d041c74558bb9842`)
+ 
 const whether_data = res.data
-console.log("whether_data", whether_data)
+
 setWhetherData(whether_data)
 setCond(true)
 setFormdata({city:''})
+} catch (error) {
+  
+  alert(error.response.data.message)
+}
+
 
  }
   return (
